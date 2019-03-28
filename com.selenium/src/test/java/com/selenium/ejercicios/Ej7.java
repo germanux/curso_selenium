@@ -11,33 +11,31 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class Ej1 {
+public class Ej7 {
 	private static WebDriver driver;
 	
 	@BeforeClass
 	public static void setUp() {
 		System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver/geckodriver.exe");
 		driver = new FirefoxDriver();
-		driver.get("https://es.wikipedia.org/");
+		driver.get("https://es.wikipedia.org/wiki/Wikipedia:Portada");
 	}
 	
 	@Test
-	public void testEjercicio1() {
-		WebElement portada = driver.findElement(By.id("n-mainpage-description"));
-		assertEquals(portada.getText(), "Portada");
+	public void testEjercicio7() {
+		WebElement searchBox = driver.findElement(By.id("searchInput"));
+		searchBox.clear();
+		searchBox.sendKeys("Selenium");
 		
-		WebElement portal = driver.findElement(By.id("n-portal"));
-		assertEquals(portal.getText(), "Portal de la comunidad");
+		WebElement sendButton = driver.findElement(By.id("searchButton"));
+		sendButton.click();
 		
-		WebElement ayuda = driver.findElement(By.id("n-help"));
-		assertEquals(ayuda.getText(), "Ayuda");
-		
-		WebElement donaciones = driver.findElement(By.id("n-sitesupport"));
-		assertEquals(donaciones.getText(), "Donaciones");
+		assertEquals(driver.getTitle(), "Selenium - Wikipedia, la enciclopedia libre");
 	}
 	
 	@AfterClass
 	public static void tearDown() {
 		driver.quit();
 	}
+
 }

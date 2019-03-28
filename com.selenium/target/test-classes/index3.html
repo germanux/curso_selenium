@@ -5,7 +5,50 @@
 	integrity="sha256-
 FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
 	crossorigin="anonymous"></script>
+<style>
+#mensaje {
+	width: 200px;
+}
+</style>
 </head>
 <body>
+	<!-- ... -->
+	<div id="divMensaje">
+		<label for="mensaje" id="lb-mensaje">Mensaje:</label> <input
+			type="text" id="mensaje" value="Hola mundo!!!">
+	</div>
+
+	<select id="listaCoches">
+		<option value="tesla">Tesla</option>
+		<option value="audi">Audi</option>
+		<option value="mercedes">Mercedes</option>
+		<option value="bmw">BMW</option>
+	</select>
+<br/>
+	<select id="colores" multiple>
+		<option value="black">Black</option>
+		<option value="yellow">Yellow</option>
+		<option value="red">Red</option>
+		<option value="blue">Blue</option>
+	</select>
+<br/>
+	<select id="meses">
+		<option value="0">Enero</option>
+		<option value="1">Febrero</option>
+		<option value="2">Marzo</option>
+		<option value="3">Abril</option>
+		<option value="4">Mayo</option>
+	</select>
+<br/>
+	<input type="radio" id="opcion1" name="opcion" value="mañana">Mañana
+	<input type="radio" id="opcion2" name="opcion" value="tarde" checked>Tarde
+<br/>
+	<div id="hobbies">
+		<input type="checkbox" id="hobby1" name="hobby" value="cine"><span>Cine</span>
+		<input type="checkbox" id="hobby2" name="hobby" value="musica"><
+		span>Musica</span> <input type="checkbox" id="hobby3" name="hobby"
+			value="series">< span>Series</span> <input type="checkbox"
+			id="hobby4" name="hobby" value="tenis" checked><span>Tenis</span>
+	</div>
 </body>
 </html>

@@ -16,7 +16,8 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class FindElements {
 	private static WebDriver driver;
-	private static final String RUTA_HTML = "file:///D:/Trabajo/Formacion/_CURSO_SELENIUM/com.selenium/src/test/resources/index.html";
+	private static final String RUTA_HTML = "file:///D:/Trabajo/Formacion/_CURSO_SELENIUM/curso_selenium/com.selenium/src/test/resources/index.html";
+	private static final String RUTA_HTML_2 = "file:///D:/Trabajo/Formacion/_CURSO_SELENIUM/curso_selenium/com.selenium/src/test/resources/index2.html";
 
 	@BeforeClass
 	public static void setUp() {
@@ -105,7 +106,85 @@ public class FindElements {
 	@Test
 	public void byXPath_4() {
 		driver.get(RUTA_HTML);
+		WebElement button1 = driver.findElement(By.xpath("//input[@type='submit' and @value='Login']"));
+//		WebElement button1 = driver.findElement(By.xpath("//input[@type='submit' and @value='Logout']"));
+		assertEquals(button1.getAttribute("value"), "Login");
+		WebElement button2 = driver.findElement(By.xpath("//input[@type='submit' or @value='Logout']"));
+//		WebElement button2 = driver.findElement(By.xpath("//input[@type='button' or @value='Logout']"));
+		assertEquals(button2.getAttribute("value"), "Login");
+		List<WebElement> imagesWithAlt = driver.findElements(By.xpath("//img[not(@alt)]"));
+		assertEquals(imagesWithAlt.size(), 1);
 	}
+	
+	@Test
+	public void byXPath5() {
+		driver.get(RUTA_HTML);
+		WebElement input = driver.findElement(By.xpath("//input[@*='password']"));
+		assertEquals(input.getAttribute("placeholder"), "Un ejemplo...");
+	}
+	
+	@Test
+	public void byCssSelector1() {
+		driver.get(RUTA_HTML);
+		WebElement username1 = driver.findElement(By.cssSelector("html body form div label"));
+		assertEquals(username1.getText(), "Username:");
+		WebElement username2 = driver.findElement(By.cssSelector("html > body > form > div > label"));
+		assertEquals(username2.getText(), "Username:");
+	}
+	
+	@Test
+	public void byCssSelector2() {
+		driver.get(RUTA_HTML);
+		WebElement username = driver.findElement(By.cssSelector("label"));
+		assertEquals(username.getText(), "Username:");
+	}
+	
+	@Test
+	public void byCssSelector3() {
+		driver.get(RUTA_HTML);
+		WebElement username = driver.findElement(By.cssSelector("input.in-user"));
+		assertNotNull(username);
+		
+		WebElement pass1 = driver.findElement(By.cssSelector("input#input-pass"));
+		assertEquals(pass1.getAttribute("placeholder"), "Un ejemplo...");
+
+		//TODO: Añadir ejemplo
+	}
+	
+	@Test
+	public void byCssSelector4() {
+		driver.get(RUTA_HTML);
+		WebElement password = driver.findElement(By.cssSelector("input[name='password']"));
+		assertEquals(password.getAttribute("placeholder"), "Un ejemplo...");
+		
+		WebElement img = driver.findElement(By.cssSelector("img[alt='Imagen1']"));
+		assertEquals(img.getAttribute("name"), "img1");
+	}
+	
+	@Test
+	public void byCssSelector5() {
+		driver.get(RUTA_HTML);
+		WebElement input1 = driver.findElement(By.cssSelector("div#lista-items > ul > li:first-child > input"));
+		assertEquals(input1.getAttribute("value"), "Item 1");
+
+		WebElement input2 = driver.findElement(By.cssSelector("div#lista-items > ul > li:nth-child(2) > input"));
+		assertEquals(input2.getAttribute("value"), "Item 2");
+
+		//TODO: Añadir ejemplo
+	}
+	
+	@Test
+	public void byCssSelector6() {
+		driver.get(RUTA_HTML);
+		//TODO: Añadir ejemplo
+	}
+	
+	@Test
+	public void byJQuery() {
+		driver.get(RUTA_HTML_2);
+		//TODO: Añadir ejemplo
+	}
+	
 	
 	@AfterClass
 	public static void tearDown() {

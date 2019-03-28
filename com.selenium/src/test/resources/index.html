@@ -5,18 +5,24 @@
 <body>
 	<form id="loginForm">
 		<div>
-			<label for="username" id="label-user">User name:</label> 
-			<input type="text" id="input-user" class="in-user" name="username" />
+			<label for="username" id="label-user">Username:</label> <input
+				type="text" id="input-user" class="in-user" name="username">
 		</div>
 		<div>
-			<label for="password" id="label-user">Password:</label> 
-			<input type="password" id="input-pass" class="in-pass" name="password"
-			placeholder="Un ejemplo..." />
+			<label for="password">Password:</label> <input
+				placeholder="Un ejemplo..." type="text" id="input-pass"
+				class="in-pass" name="password">
 		</div>
-
-		<input type="submit" id="btn-login" value="Login" />
+		<input type="submit" id="btn-login" value="Login">
 	</form>
-	<img src="imagen1.jpg" alt="Imagen1" name="img1"/>
-	<img name="img2"/>
+	<img src="imagen1.png" alt="Imagen1" name="img1">
+	<img name="img2">
+	<div id="lista-items">
+		<ul>
+			<li><input type="text" value="Item 1" autofocus></li>
+			<li><input type="text" value="Item 2" disabled></li>
+			<li><input type="text" value="Item 3"></li>
+		</ul>
+	</div>
 </body>
 </html>

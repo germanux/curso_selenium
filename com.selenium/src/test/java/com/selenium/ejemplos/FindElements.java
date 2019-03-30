@@ -121,6 +121,9 @@ public class FindElements {
 		driver.get(RUTA_HTML);
 		WebElement input = driver.findElement(By.xpath("//input[@*='password']"));
 		assertEquals(input.getAttribute("placeholder"), "Un ejemplo...");
+		
+		List<WebElement> imagesWithAlt = driver.findElements(By.xpath("//*[@*='password']"));
+		assertEquals(imagesWithAlt.size(), 2);
 	}
 	
 	@Test
@@ -142,13 +145,14 @@ public class FindElements {
 	@Test
 	public void byCssSelector3() {
 		driver.get(RUTA_HTML);
-		WebElement username = driver.findElement(By.cssSelector("input.in-user"));
+		WebElement username = driver.findElement(By.cssSelector(".in-user"));
 		assertNotNull(username);
 		
 		WebElement pass1 = driver.findElement(By.cssSelector("input#input-pass"));
 		assertEquals(pass1.getAttribute("placeholder"), "Un ejemplo...");
 
-		//TODO: Añadir ejemplo
+		WebElement pass2 = driver.findElement(By.cssSelector("#input-pass"));
+		assertEquals(pass2.getAttribute("placeholder"), "Un ejemplo...");
 	}
 	
 	@Test
@@ -170,19 +174,30 @@ public class FindElements {
 		WebElement input2 = driver.findElement(By.cssSelector("div#lista-items > ul > li:nth-child(2) > input"));
 		assertEquals(input2.getAttribute("value"), "Item 2");
 
-		//TODO: Añadir ejemplo
+		WebElement input3 = driver.findElement(By.cssSelector("div#lista-items > ul > li:last-child > input"));
+		assertEquals(input3.getAttribute("value"), "Item 3");
 	}
 	
 	@Test
 	public void byCssSelector6() {
 		driver.get(RUTA_HTML);
-		//TODO: Añadir ejemplo
+		WebElement inputAutofocus = driver.findElement(By.cssSelector("input:focus"));
+		assertEquals(inputAutofocus.getAttribute("value"), "Item 1");
+
+		WebElement inputDisabled = driver.findElement(By.cssSelector("input:disabled"));
+		assertEquals(inputAutofocus.getAttribute("value"), "Item 1");		
 	}
 	
 	@Test
 	public void byJQuery() {
 		driver.get(RUTA_HTML_2);
-		//TODO: Añadir ejemplo
+
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		List<WebElement> elemChecked = (List<WebElement>) js.executeScript("return jQuery.find('#paises-visitados > :checked');");
+		assertEquals(elemChecked.size(), 3);
+		
+		List<WebElement> elemNotChecked = (List<WebElement>) js.executeScript("return jQuery.find('#paises-visitados > input:checkbox:not(:checked)')");
+		assertEquals(elemNotChecked.size(), 2);		
 	}
 	
 	

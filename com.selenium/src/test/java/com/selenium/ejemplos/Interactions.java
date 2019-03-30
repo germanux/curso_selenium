@@ -26,26 +26,46 @@ public class Interactions {
 		System.setProperty("webdriver.gecko.driver", "src/test/resources/drivers/geckodriver/geckodriver.exe");
 		driver = new FirefoxDriver();
 	}
-	
 	@Test
 	public void textBoxSubmit() {
 		driver.get("http://www.google.com");
-		// Pausador.pausa(1);
-		//TODO: Añadir ejemplo
+		Pausador.pausa(1);
+		WebElement input = driver.findElement(By.name("q"));
+		input.sendKeys("Selenium");
+		//Pausador.pausa(1);
+		
+		input.clear();
+		//Pausador.pausa(1);
+		input.sendKeys("Java Selenium");
+		//Pausador.pausa(1);
+		
+		input.submit();
+		//Pausador.pausa(2);
 	}
-	
 	@Test
 	public void textBoxClick() {
 		driver.get("http://www.google.com");
-		//TODO: Añadir ejemplo
+		// Pausador.pausa(1);
+		WebElement input = driver.findElement(By.name("q"));
+		input.sendKeys("Selenium");
+		//Pausador.pausa(1);
+		
+		input.clear();
+		//Pausador.pausa(1);
+		input.sendKeys("Java Selenium");
+		WebElement inputBtn = driver.findElement(By.name("btnK"));
+		Pausador.pausa(2);
+		inputBtn.click();
+		Pausador.pausa(2);
 	}
+	
 	
 	@Test
 	public void getTextFromElement() {
 		driver.get(RUTA_HTML_3);
-		//TODO: Añadir ejemplo
-	}
-	
+		WebElement label = driver.findElement(By.id("lb-mensaje"));
+		assertEquals(label.getText(), "Mensaje:");		
+	} 
 	@Test
 	public void getCssValueAndAttribute() {
 		driver.get(RUTA_HTML_3);
@@ -53,13 +73,27 @@ public class Interactions {
 		assertEquals(mensaje.getAttribute("value"), "Hola mundo!!!");
 		assertEquals(mensaje.getCssValue("width"), "200px");
 	}
-	
+
 	@Test
 	public void testDropdown() {
 		driver.get(RUTA_HTML_3);
 		Select coches = new Select(driver.findElement(By.id("listaCoches")));
 
-		//TODO: Añadir ejemplo
+		assertFalse(coches.isMultiple());
+		assertEquals(coches.getOptions().size(), 4);
+		
+		coches.selectByVisibleText("Tesla");
+		assertEquals(coches.getFirstSelectedOption().getText(), "Tesla");
+		//Pausador.pausa(3);
+		
+		coches.selectByValue("audi");
+		assertEquals(coches.getFirstSelectedOption().getAttribute("value"), "audi");
+		//Pausador.pausa(3);
+		
+		coches.selectByIndex(3);
+		assertEquals(coches.getFirstSelectedOption().getText(), "BMW");
+		//Pausador.pausa(3);
+		
 	}
 	
 	@Test
@@ -74,8 +108,19 @@ public class Interactions {
 		colores.selectByValue("red");
 		assertEquals(colores.getAllSelectedOptions().size(), 2);
 
-		//TODO: Añadir ejemplo
+		colores.deselectByValue("red");
+		assertEquals(colores.getAllSelectedOptions().size(), 1);
+
+		colores.deselectByIndex(1);
+		assertEquals(colores.getAllSelectedOptions().size(), 0);
+		
+		colores.selectByIndex(0);
+		colores.selectByIndex(3);
+		
+		colores.deselectAll();
+		assertEquals(colores.getAllSelectedOptions().size(), 0);
 	}
+
 	
 	@Test
 	public void testCorrectOptions() {
@@ -88,16 +133,28 @@ public class Interactions {
 		listaMeses.add("Abril");
 		listaMeses.add("Mayo");
 
-		//TODO: Añadir ejemplo
+		Select meses = new Select(driver.findElement(By.id("meses")));
+		ArrayList<String> valoresSelect = new ArrayList<String>();
+		for (WebElement option : meses.getOptions()) {
+			valoresSelect.add(option.getText());
+		}
+		assertArrayEquals(listaMeses.toArray(), valoresSelect.toArray());
 	}
 	
 	@Test
 	public void testRadioButtons() {
 		driver.get(RUTA_HTML_3);
 		WebElement radioMañana = driver.findElement(By.xpath("//input[@type='radio' and @value='mañana']"));
-		//TODO: Añadir ejemplo
+
+		assertFalse(radioMañana.isSelected());
+		//Pausador.pausa(3);
+		if ( ! radioMañana.isSelected()) {
+			radioMañana.click();
+		}
+		//Pausador.pausa(3);
+		assertTrue(radioMañana.isSelected());
+		//Pausador.pausa(3);
 	}
-	
 	@Test
 	public void testCheckBoxes() {
 		driver.get(RUTA_HTML_3);
@@ -105,9 +162,15 @@ public class Interactions {
 		WebElement checkMusica = driver.findElement(By.xpath("//input[@value='musica']"));
 		assertFalse(checkMusica.isSelected());
 
-		//TODO: Añadir ejemplo
+		//Pausador.pausa(3);
+		if ( ! checkMusica.isSelected()) {
+			checkMusica.click();
+		}
+		//Pausador.pausa(3);
+		assertTrue(checkMusica.isSelected());
 	}
-	
+	/*
+	*/
 	@AfterClass
 	public static void tearDown() {
 		driver.quit();

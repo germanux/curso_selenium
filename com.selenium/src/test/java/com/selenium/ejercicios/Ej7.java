@@ -11,6 +11,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import com.selenium.ejemplos.Pausador;
+
 public class Ej7 {
 	private static WebDriver driver;
 	
@@ -31,6 +33,7 @@ public class Ej7 {
 		sendButton.click();
 		
 		assertEquals(driver.getTitle(), "Selenium - Wikipedia, la enciclopedia libre");
+		Pausador.pausa(4);
 	}
 	
 	@AfterClass

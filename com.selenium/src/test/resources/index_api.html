@@ -2,14 +2,22 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Selenium API</title>
 </head>
 <body>
-
+<h2> HTML para ejemplos Selenium API</h2>
+<div id="caja">Caja</div>
 </body>
 <script>
-function saludar() {
-alert('Hola mundo!!!');
-}
+	function saludar() {
+		alert('Hola mundo!!!');
+	}
+	setTimeout(() => {
+		var btn = document.createElement('input');
+		btn.setAttribute('type', 'button');
+		btn.setAttribute('id', 'btn-1');
+		btn.setAttribute('value', 'Pulsar');
+		document.getElementById('caja').appendChild(btn);
+		}, 4000);
 </script>
 </html>

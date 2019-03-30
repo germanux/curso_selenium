@@ -25,6 +25,7 @@ public class Ej4 {
 	
 	@Test
 	public void testEjercicio4() {
+		//      //*[@id="p-coll-print_export-label"]
 		WebElement print = driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[3]/h3"));
 		WebElement otherProjects = driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[4]/h3"));
 		WebElement tools = driver.findElement(By.xpath("/html/body/div[4]/div[2]/div[5]/h3"));

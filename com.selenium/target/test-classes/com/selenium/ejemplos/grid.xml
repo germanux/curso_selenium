@@ -1,0 +1,27 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="Test Grid" parallel="tests">
+	<test name="Test Grid IE">
+		<parameter name="browser" value="IE" />
+		<classes>
+			<class name="ejemplos.SeleniumGridParalelos" />
+		</classes>
+	</test>
+	<test name="Test Grid Firefox">
+		<parameter name="browser" value="Firefox" />
+		<classes>
+			<class name="ejemplos.SeleniumGridParalelos" />
+		</classes>
+	</test>
+	<test name="Test Grid Chrome">
+		<parameter name="browser" value="Chrome" />
+		<classes>
+			<class name="ejemplos.SeleniumGridParalelos" />
+		</classes>
+	</test>
+	<test name="Test Grid IE2">
+		<parameter name="browser" value="IE" />
+		<classes>
+			<class name="ejemplos.SeleniumGridParalelos" />
+		</classes>
+	</test>
+</suite>

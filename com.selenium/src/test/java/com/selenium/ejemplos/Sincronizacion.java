@@ -29,18 +29,17 @@ public class Sincronizacion {
 		driver = new FirefoxDriver();
 	}
 
-//	@Test
+	// @Test
 	public void testSincroImplicita() {
 		driver.get(SeleniumAPI.RUTA_HTML_API);
-		;
-
-		//TODO: Añadir ejemplo
 		
+		driver.manage().timeouts().implicitlyWait(8000, TimeUnit.MILLISECONDS);
+				
 		WebElement button = driver.findElement(By.cssSelector("#btn-1"));
 		assertNotNull(button);
 	}
 
-//	@Test
+	// @Test
 	public void testWebDriverWait() {
 		driver.get(SeleniumAPI.RUTA_HTML_API);
 		WebElement button;
@@ -50,22 +49,36 @@ public class Sincronizacion {
 			System.out.println("     >>>>>>>>>       No ENCONTRADO");
 			e.printStackTrace();
 		}
-		;
-
-		//TODO: Añadir ejemplo
-		
+		WebDriverWait wait = new WebDriverWait(driver, 8);
+		wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("#btn-1")));
 		
 		button = driver.findElement(By.cssSelector("#btn-1"));
 		assertNotNull(button);
 	}
 
-//	@Test
 	@Test
 	public void testFluentWait() {
 		driver.get(SeleniumAPI.RUTA_HTML_API);
-		;
 
-		//TODO: Añadir ejemplo
+		FluentWait<WebDriver> wait = new FluentWait<WebDriver>(driver)
+				.withTimeout(Duration.ofMillis(8000))
+				.pollingEvery(Duration.ofMillis(600))
+				.ignoring(Exception.class);
+		
+		WebElement button = wait.until(new Function<WebDriver, WebElement>() {
+
+			public WebElement apply(WebDriver inputDriver) {
+				WebElement boton = driver.findElement(By.cssSelector("#btn-1"));
+				System.out.println("    >>>>>>> " + boton.getText());
+				if (boton.getText().equalsIgnoreCase("Pulsar")) {
+					System.out.println("    >>>>>>> Encontrado");
+					return boton;
+				} else {
+					System.out.println("    >>>>>>> NO Encontrado!!");
+					return null;
+				}
+			}			
+		});		
 	}
 
 	@AfterClass

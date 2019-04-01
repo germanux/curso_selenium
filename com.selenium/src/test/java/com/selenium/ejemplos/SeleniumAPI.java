@@ -32,7 +32,7 @@ public class SeleniumAPI {
 		driver = new FirefoxDriver();
 	}
 	
-	@Test
+	//@Test
 	public void testDoubleClick() {
 		driver.get("http://cookbook.seleniumacademy.com/DoubleClickDemo.html");
 
@@ -44,7 +44,7 @@ public class SeleniumAPI {
 		
 	}
 	
-	@Test
+	//@Test
 	public void testDragAndDrop() {
 		driver.get("http://cookbook.seleniumacademy.com/DragDropDemo.html");
 
@@ -57,28 +57,66 @@ public class SeleniumAPI {
 		Pausador.pausa(1);
 	}
 	
-	@Test
+	//@Test
 	public void testJavascript() {
 		driver.get(RUTA_HTML_API);
 
-		//TODO: Añadir ejemplo
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+		js.executeScript("saludar();");
+
+		Alert alert = driver.switchTo().alert();
+		assertEquals(alert.getText(), "Hola Babel!!!");
+		Pausador.pausa(1);
+		alert.accept();
+		Pausador.pausa(1);
 	}
 	
-	@Test
+	//@Test
 	public void testScreenshots() throws IOException {
 		driver.get("http://cookbook.seleniumacademy.com/DragDropDemo.html");
-		//TODO: Añadir ejemplo
+
+		WebElement source = driver.findElement(By.id("draggable"));
+		WebElement target = driver.findElement(By.id("droppable"));
+		
+		File srcFile = ((TakesScreenshot) driver)
+				.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(srcFile, new File("src/test/resources/pantallazos/antesDelDragAndDrop.png"));
+		
+		
+		Pausador.pausa(1);
+		Actions builder = new Actions(driver);
+		builder.dragAndDrop(source, target).perform();
+		assertEquals(target.getText(), "Dropped!");
+
+		srcFile = ((TakesScreenshot) driver)
+				.getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(srcFile, new File("src/test/resources/pantallazos/despuesDelDragAndDrop.png"));
+		
+		Pausador.pausa(1);
 	}
 	
 	@Test
 	public void testEventosWebDriver() {
-		//TODO: Añadir ejemplo
+		EventFiringWebDriver eventDriver = new EventFiringWebDriver(driver);
+		TraceListener listener = new TraceListener();
+		eventDriver.register(listener);		
 		
-		// eventDriver.get("https://es.wikipedia.org/w/index.php?title=Especial:Buscar&search=&fulltext=Buscar&profile=advanced");
-
-		
-		// List<WebElement> checkboxes = eventDriver.findElements(By.cssSelector("div.oo-ui-multiselectWidget-group input[type='checkbox']"));
-		//TODO: Añadir ejemplo
+		eventDriver.get("https://es.wikipedia.org/w/index.php?title=Especial:Buscar&search=&fulltext=Buscar&profile=advanced");
+		Pausador.pausa(2);
+		List<WebElement> checkboxes = eventDriver.findElements(By.cssSelector("input[type='checkbox']"));
+		for (WebElement check : checkboxes) {
+			if ( ! check.isSelected()) {
+				check.click();
+			}
+		}
+		WebElement searchTextBox = eventDriver.findElement(By.cssSelector(".oo-ui-inputWidget-input"));
+		searchTextBox.clear();
+		searchTextBox.sendKeys("Selenium");
+		Pausador.pausa(2);
+		searchTextBox.submit();
+		// Ahora también provocamos un error:
+		eventDriver.findElement(By.cssSelector("QUE no existe"));
+				
 	}
 	
 	@AfterClass

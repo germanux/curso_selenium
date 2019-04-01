@@ -84,16 +84,16 @@ public class TraceListener implements WebDriverEventListener {
 	}
 
 	public void beforeChangeValueOf(WebElement arg0, WebDriver arg1, CharSequence[] arg2) {
-		System.out.println("BeforeChangeValueOf: " + arg0);
+		System.out.println("   >>>>>    BeforeChangeValueOf: " + arg0);
 		
 	}
 
 	public void beforeClickOn(WebElement arg0, WebDriver arg1) {
-		System.out.println("BeforeClickOn: " + arg0);
+		System.out.println("   >>>>>    BeforeClickOn: " + arg0);
 	}
 
 	public void beforeFindBy(By arg0, WebElement arg1, WebDriver arg2) {
-		System.out.println("BeforeFindBy: " + arg0);
+		System.out.println("   >>>>>    BeforeFindBy: " + arg0);
 	}
 
 	public <X> void beforeGetScreenshotAs(OutputType<X> arg0) {
@@ -117,7 +117,7 @@ public class TraceListener implements WebDriverEventListener {
 	}
 
 	public void beforeNavigateTo(String arg0, WebDriver arg1) {
-		System.out.println("BeforeNavigateTo: " + arg0);
+		System.out.println("   >>>>> BeforeNavigateTo: " + arg0);
 		
 	}
 

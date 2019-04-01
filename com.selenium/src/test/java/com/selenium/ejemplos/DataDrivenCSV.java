@@ -21,7 +21,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.FluentWait;
 
-import com.beust.jcommander.Parameter;
 import com.google.common.base.Function;
 import com.opencsv.CSVReader;
 
@@ -41,7 +40,7 @@ public class DataDrivenCSV {
 		driver.get("https://es.wikipedia.org/w/index.php?title=Especial:Crear_una_cuenta");
 	}
 	
-	@Parameter
+	@Parameters
 	public static List<String[]> testData() throws IOException {
 		return getTestData("src/test/resources/datadriven/registerData.csv");
 	}
@@ -60,6 +59,7 @@ public class DataDrivenCSV {
 		this.email = email;
 		this.captcha = captcha;
 	}
+	
 	@Test
 	public void testSignUp() {
 		WebElement usernameElement = driver.findElement(By.cssSelector("#wpName2"));
@@ -82,23 +82,24 @@ public class DataDrivenCSV {
 		captchaElement.clear();
 		captchaElement.sendKeys(captcha);
 
-		WebElement submitBtn = driver.findElement(By.id("wpCreateaccount"));
+		WebElement submitBtn = driver.findElement(By.cssSelector("#wpCreateaccount"));
 		submitBtn.click();
-		
+
 		FluentWait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver)
 				.withTimeout(Duration.ofSeconds(10))
 				.pollingEvery(Duration.ofSeconds(2));
-		
-		WebElement error = fluentWait.until(new Function<WebDriver, WebElement>() {
 
-			public WebElement apply(WebDriver inputDriver) {
-				WebElement elem = inputDriver.findElement(By.cssSelector(".error"));
-				if (elem.isDisplayed())
+		WebElement error = fluentWait.until(new Function<WebDriver, WebElement>() {
+			public WebElement apply(WebDriver arg0) {
+				WebElement elem = arg0.findElement(By.cssSelector(".error"));
+				if (elem.isDisplayed()) {
 					return elem;
-				else
+				} else {
 					return null;
-			}			
+				}	
+			}
 		});
+		
 		assertNotNull(error);
 	}
 	
